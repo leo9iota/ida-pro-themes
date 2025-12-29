@@ -15,7 +15,8 @@ A clean, modern **One Dark** theme for IDA Pro (7.3+ and 9.x), inspired by Atom'
 
 1.  **Clone or Download** this repository.
 2.  Copy the `themes` directory into your IDA Pro installation directory (or your user-specific IDA directory).
-    - Ensure your final structure looks like: `.../IDA Pro/themes/onedark/theme.css`
+    - Ensure your final structure looks like: `.../themes/onedark/` containing `icons/` and `theme.css`.
+    - (Note: The theme relies on the standard `themes/_base` found in your IDA installation).
 3.  **Activate in IDA**:
     - Open IDA Pro.
     - Go to **Options** -> **Colors**.
