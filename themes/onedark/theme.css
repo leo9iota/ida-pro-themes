@@ -1,7 +1,7 @@
 /*
-    IDA Pro One Dark Theme (Modernized for IDA 9.2+)
-    Inspired by Atom One Dark
-     Icons by Remix Icon (Apache 2.0)
+    IDA Pro One Dark Theme (Modernized Structure)
+    Structure based on 52dark, Colors based on Atom One Dark
+    Icons: Material Design SVGs
 */
 
 @importtheme "_base";
@@ -23,69 +23,96 @@
 @def od_white       #dcdfe4;
 @def od_gray        #5c6370;
 
-/* Base Widget Styling */
+/* Base Window & Widget Styling */
 QWidget {
     background-color: ${od_bg};
     color: ${od_fg};
-    font-family: "Consolas", "Menlo", "Courier New", monospace; /* Ensure clean mono font */
+    border: none;
+    selection-background-color: ${od_selection};
+    selection-color: ${od_selection_fg};
+    font-family: "Consolas", "Menlo", "Courier New", monospace;
 }
 
 QMainWindow {
     background-color: ${od_bg};
+    color: ${od_fg};
 }
 
-/* Dock Widgets */
-/* Dock Widgets */
-DockWidgetTitle,
-DockAreaDragTitle {
+/* Dock Widgets - Modified 52dark Style (Flat) */
+DockWidgetTitle, DockAreaDragTitle {
     border: none;
-    padding: 4px 6px;
+    padding: 3px 5px 3px 5px; /* 52dark padding */
+    font-weight: bold;
+    border-top-left-radius: 4px; /* 52dark radius */
+    border-top-right-radius: 4px;
+}
+
+DockWidgetTitle { /* Inactive Title */
     background: ${od_bg_dark};
-    color: ${od_fg};
+    color: ${od_gray};
     border-bottom: 2px solid ${od_bg_darker};
 }
 
-DockWidgetTitle[active="true"] {
-    background: ${od_bg_dark}; /* Keep neutral, let the accent be the border */
+DockWidgetTitle[active="true"] { /* Active Title */
+    background: ${od_bg_dark};
     color: ${od_fg};
-    border-bottom: 2px solid ${od_blue};
+    border-bottom: 2px solid ${od_blue}; /* One Dark Accent */
 }
 
-DockAreaDragTitle {
+DockAreaDragTitle { /* Dragging */
     background: ${od_blue};
     color: ${od_bg_darker};
 }
 
-/* Icons for Dock Buttons */
+/* Dock Control Buttons - Flat Style */
 DockWidgetTitle QPushButton {
-    background: transparent;
+    min-height: 18px;
+    height: 18px;
+    min-width: 18px;
+    width: 18px;
+    padding: 1px;
+    background-color: transparent;
+    border: none;
     border-radius: 3px;
-    padding: 3px;
+    margin: 2px;
 }
 
 DockWidgetTitle QPushButton:hover {
     background-color: ${od_selection};
 }
 
+DockWidgetTitle QPushButton:pressed {
+    background-color: ${od_bg_darker};
+}
+
+DockWidgetTitle[active="true"] QPushButton:hover {
+    background-color: ${od_selection};
+}
+
+/* Icons - Material Design SVGs */
+DockWidgetTitle QPushButton[toolTip="Fullscreen"] {
+    qproperty-icon: url("$RELPATH/icons/fullscreen.svg");
+}
+
 DockWidgetTitle QPushButton[toolTip="Close"] {
-    qproperty-icon: url("$RELPATH/icons/control-close.svg");
-    icon-size: 14px;
+    qproperty-icon: url("$RELPATH/icons/close.svg");
 }
 
 DockWidgetTitle QPushButton[toolTip="Float"] {
     qproperty-icon: url("$RELPATH/icons/control-float.svg");
-    icon-size: 14px;
+    icon-size: 14px; /* Explicit size often helps SVGs */
 }
 
-DockWidgetTitle QPushButton[toolTip="Fullscreen"] {
-    qproperty-icon: url("$RELPATH/icons/control-fullscreen.svg");
-    icon-size: 14px;
-}
-
-/* Tab Bar */
+/* Tab Widget - Modified 52dark Style */
 QTabWidget::pane {
     border: 1px solid ${od_bg_darker};
-    background: ${od_bg};
+    border-top: none;
+    background-color: ${od_bg};
+}
+
+QTabWidget::tab-bar {
+    left: 5px;
+    border: none;
 }
 
 QTabBar::tab {
@@ -93,132 +120,121 @@ QTabBar::tab {
     color: ${od_gray};
     border: 1px solid ${od_bg_darker};
     border-bottom: none;
-    padding: 6px 14px;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    min-width: 8ex;
+    padding: 5px 10px 5px 10px;
     margin-right: 2px;
-    border-top-left-radius: 0px; /* Square off for 52dark look */
-    border-top-right-radius: 0px;
+}
+
+QTabBar::tab:selected, QTabBar::tab:hover {
+    background: ${od_bg};
+    color: ${od_fg};
+    border-top: 2px solid ${od_blue}; /* Accent top border */
 }
 
 QTabBar::tab:selected {
-    background: ${od_bg};
-    color: ${od_fg};
-    border-top: 2px solid ${od_blue};
+    margin-bottom: -1px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid ${od_bg}; /* Merge with pane */
 }
 
-QTabBar::tab:hover:!selected {
+QTabBar::tab:!selected:hover {
     background: ${od_selection};
     color: ${od_fg};
 }
 
+/* Close Button on Tabs */
 QTabBar::close-button {
-    image: url("$RELPATH/icons/control-close.svg");
+    image: url("$RELPATH/icons/close.svg");
+    subcontrol-position: right;
+    subcontrol-origin: padding;
+    border-radius: 2px;
+    background: transparent;
     padding: 2px;
+    margin-left: 4px;
 }
 
-/* Lists, Trees, Tables */
-QTreeView, QListView, QTableView {
-    background-color: ${od_bg};
-    color: ${od_fg};
-    border: 1px solid ${od_bg_darker};
-    alternate-background-color: ${od_bg_dark};
-    selection-background-color: ${od_selection};
-    selection-color: ${od_selection_fg};
-    outline: none;
-    padding: 2px;
-}
-
-QHeaderView::section {
-    background-color: ${od_bg_dark};
-    color: ${od_fg};
-    padding: 5px;
-    border: none;
-    border-right: 1px solid ${od_bg_darker};
-    border-bottom: 1px solid ${od_bg_darker};
-    font-weight: bold;
-}
-
-/* Scrollbars - 52dark Style */
-QScrollBar:vertical {
-    background: ${od_bg};
-    width: 12px;
-    margin: 0px;
-    border-left: 1px solid ${od_bg_darker};
-}
-
-QScrollBar:horizontal {
-    background: ${od_bg};
-    height: 12px;
-    margin: 0px;
-    border-top: 1px solid ${od_bg_darker};
-}
-
-QScrollBar::handle:vertical {
+QTabBar::close-button:hover {
     background: ${od_selection};
-    min-height: 20px;
-    margin: 2px;
-    border-radius: 4px;
 }
 
-QScrollBar::handle:horizontal {
-    background: ${od_selection};
-    min-width: 20px;
-    margin: 2px;
-    border-radius: 4px;
-}
-
-QScrollBar::handle:hover {
-    background: ${od_gray};
-}
-
-QScrollBar::add-line, QScrollBar::sub-line {
-    border: none;
-    background: none;
-    height: 0px;
-    width: 0px;
-}
-
-QScrollBar::add-page, QScrollBar::sub-page {
-    background: none;
-}
-
-/* Checkboxes & Radios */
-QCheckBox::indicator, QGroupBox::indicator {
-    width: 16px;
-    height: 16px;
-}
-
-QCheckBox::indicator:unchecked {
-    image: url("$RELPATH/icons/checkbox-unchecked.svg");
-}
-
-QCheckBox::indicator:checked {
-    image: url("$RELPATH/icons/checkbox-checked.svg");
-}
-
-QRadioButton::indicator {
-    width: 16px;
-    height: 16px;
-}
-
-QRadioButton::indicator:unchecked {
-    image: url("$RELPATH/icons/radio-unchecked.svg");
-}
-
-QRadioButton::indicator:checked {
-    image: url("$RELPATH/icons/radio-checked.svg");
-}
-
-/* Arrows / Combobox */
-QComboBox::down-arrow {
-    image: url("$RELPATH/icons/arrow-down.svg");
-    width: 14px;
-    height: 14px;
-}
-
-/* Menus */
-QMenu {
-    background-color: ${od_bg_dark};
+/* Tooltips */
+QToolTip, QTipLabel {
     border: 1px solid ${od_selection};
+    border-radius: 3px;
+    background: ${od_bg_dark};
+    color: ${od_fg};
+    padding: 4px;
+}
+
+/* Containers */
+EditContainer, ChooserContainer,
+QListView, QTreeView, QGroupBox {
+    border: 1px solid ${od_bg_darker};
+    border-radius: 4px;
+    background-color: ${od_bg};
+}
+
+QGroupBox {
+    margin-top: 15px;
+    padding: 10px;
+    padding-top: 5px;
+}
+
+QGroupBox::title {
+    subcontrol-origin: margin;
+    subcontrol-position: top left;
+    left: 10px;
+    top: 1px;
+    color: ${od_fg};
+    font-weight: bold;
+    background-color: ${od_bg};
+    padding: 0 3px;
+}
+
+/* Menu Bar and Menus */
+QMenuBar {
+    background-color: ${od_bg_dark};
+    color: ${od_fg};
+    border-bottom: 1px solid ${od_bg_darker};
+    padding: 2px;
+}
+
+QMenuBar::item {
+    color : ${od_fg};
+    spacing: 3px;
+    padding: 4px 10px;
+    background: transparent;
+    border-radius: 3px;
+}
+
+QMenuBar::item:selected {
+    background: ${od_selection};
+    color: ${od_fg};
+}
+
+QMenuBar::item:pressed {
+    background: ${od_bg_darker};
+    color: ${od_fg};
+}
+
+QMenu {
+    border: 1px solid ${od_selection};
+    padding: 4px;
+    background: ${od_bg_dark};
+    color: ${od_fg};
+    border-radius: 3px;
+}
+
+QMenu::item {
+    padding: 5px 25px 5px 25px;
+    border-radius: 3px;
+    background: transparent;
+}
+
+QMenu::item:disabled {
+    color: ${od_gray};
 }
 
 QMenu::item:selected {
@@ -226,7 +242,286 @@ QMenu::item:selected {
     color: ${od_bg_darker};
 }
 
-/* IDA Specific Views (CustomIDAMemo) */
+QMenu::separator {
+    height: 1px;
+    background: ${od_selection};
+    margin: 4px 0px;
+}
+
+/* Buttons */
+QPushButton {
+    border: 1px solid ${od_bg_darker};
+    background: ${od_bg_dark};
+    text-align: center;
+    min-height: 23px;
+    min-width: 70px;
+    padding: 4px 12px 4px 12px;
+    border-radius: 4px;
+    color: ${od_fg};
+}
+
+QPushButton:default {
+    border: 1px solid ${od_blue};
+    font-weight: bold;
+}
+
+QPushButton:hover {
+    background: ${od_selection};
+    color: ${od_fg};
+}
+
+QPushButton:pressed {
+    background: ${od_bg_darker};
+    padding-top: 5px;
+    padding-bottom: 3px;
+}
+
+QPushButton:!enabled {
+    background: ${od_bg};
+    color: ${od_gray};
+    border-color: ${od_bg_darker};
+}
+
+/* Checkboxes & Radios */
+QRadioButton, QCheckBox, QLabel {
+    background: transparent;
+    color: ${od_fg};
+    padding: 2px;
+}
+
+QCheckBox::indicator, QRadioButton::indicator {
+    width: 16px;
+    height: 16px;
+}
+
+QCheckBox::indicator:unchecked {
+    image: url("$RELPATH/icons/check-box-unchecked.svg");
+}
+
+QCheckBox::indicator:checked {
+    image: url("$RELPATH/icons/check-box-checked.svg");
+}
+
+QRadioButton::indicator:unchecked {
+    image: url("$RELPATH/icons/radio-button-unchecked.svg");
+}
+
+QRadioButton::indicator:checked {
+    image: url("$RELPATH/icons/radio-button-checked.svg");
+}
+
+/* Edits */
+QTextEdit, QPlainTextEdit {
+    background-color: ${od_bg};
+    border: 1px solid ${od_bg_darker};
+    border-radius: 3px;
+    color: ${od_fg};
+    selection-background-color: ${od_selection};
+    selection-color: ${od_selection_fg};
+    padding: 2px;
+}
+
+QLineEdit {
+    border: 1px solid ${od_bg_darker};
+    min-height: 22px;
+    border-radius: 3px;
+    padding: 2px 4px;
+    background-color: ${od_bg};
+    color: ${od_fg};
+    selection-background-color: ${od_selection};
+    selection-color: ${od_selection_fg};
+}
+
+QLineEdit:hover, QLineEdit:focus {
+    border: 1px solid ${od_blue};
+}
+
+QLineEdit:read-only, QLineEdit[readOnly="true"] {
+    color: ${od_gray};
+    background-color: ${od_bg_dark};
+}
+
+/* ComboBox */
+QComboBox {
+    border: 1px solid ${od_bg_darker};
+    border-radius: 4px;
+    background-color: ${od_bg_dark};
+    color: ${od_fg};
+    padding: 3px 5px 3px 8px;
+    min-height: 23px;
+    selection-background-color: ${od_selection};
+}
+
+QComboBox:focus {
+    border: 1px solid ${od_blue};
+}
+
+QComboBox:hover {
+    background-color: ${od_selection};
+}
+
+QComboBox:on {
+    background-color: ${od_bg_darker};
+}
+
+QComboBox::drop-down {
+    subcontrol-origin: padding;
+    subcontrol-position: top right;
+    border-left: 1px solid ${od_bg_darker};
+    width: 20px;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+    background: transparent;
+}
+
+QComboBox::down-arrow {
+    width: 14px;
+    height: 14px;
+    image: url("$RELPATH/icons/arrow-down.svg");
+    margin: 1px;
+}
+
+QComboBox QAbstractItemView {
+    border: 1px solid ${od_selection};
+    background: ${od_bg_dark};
+    color: ${od_fg};
+    selection-background-color: ${od_blue};
+    selection-color: ${od_bg_darker};
+    padding: 3px;
+    border-radius: 3px;
+}
+
+/* ScrollBars - Flat Style */
+QScrollBar:horizontal {
+    background: ${od_bg};
+    height: 14px;
+    margin: 0px 14px 0 14px;
+    border: 1px solid ${od_bg_darker};
+    border-radius: 7px;
+}
+
+QScrollBar::handle:horizontal {
+    background: ${od_selection};
+    min-width: 20px;
+    border-radius: 5px;
+    margin: 2px 0px;
+}
+
+QScrollBar::handle:horizontal:hover {
+    background: ${od_gray};
+}
+
+QScrollBar::add-line:horizontal, QScrollBar::sub-line:horizontal {
+    border: none;
+    background: none;
+    width: 0px; /* Hide buttons for cleaner look, or style them match flat */
+}
+
+/* Keeping arrows simple if we hide buttons, but if we show them: */
+QScrollBar:left-arrow:horizontal, QScrollBar:right-arrow:horizontal {
+    width: 0px; height: 0px;
+}
+
+QScrollBar:vertical {
+    background: ${od_bg};
+    width: 14px;
+    margin: 14px 0 14px 0;
+    border: 1px solid ${od_bg_darker};
+    border-radius: 7px;
+}
+
+QScrollBar::handle:vertical {
+    background: ${od_selection};
+    min-height: 20px;
+    border-radius: 5px;
+    margin: 0px 2px;
+}
+
+QScrollBar::handle:vertical:hover {
+    background: ${od_gray};
+}
+
+/* Tables and Lists */
+QTableView, QTreeView, QListView {
+    border: 1px solid ${od_bg_darker};
+    background-color: ${od_bg};
+    color: ${od_fg};
+    alternate-background-color: ${od_bg_dark};
+    gridline-color: ${od_bg_darker};
+    border-radius: 4px;
+    outline: 0px;
+    padding: 2px;
+}
+
+QHeaderView::section {
+    background-color: ${od_bg_dark};
+    color: ${od_fg};
+    font-weight: bold;
+    padding: 5px;
+    border: none;
+    border-right: 1px solid ${od_bg_darker};
+    border-bottom: 1px solid ${od_bg_darker};
+    min-height: 25px;
+}
+
+QHeaderView::section:hover {
+    background-color: ${od_selection};
+}
+
+QHeaderView::down-arrow {
+    image: url("$RELPATH/icons/arrow-down.svg");
+    width: 14px; height: 14px;
+}
+
+QHeaderView::up-arrow {
+    image: url("$RELPATH/icons/arrow-up.svg"); /* Assume arrow-up exists */
+    width: 14px; height: 14px;
+}
+
+QTreeView::item:selected,
+QListView::item:selected,
+QTableView::item:selected {
+    background-color: ${od_selection};
+    color: ${od_fg};
+}
+
+QTreeView::item:hover:!selected,
+QListView::item:hover:!selected,
+QTableView::item:hover:!selected {
+    background-color: ${od_bg_dark};
+}
+
+/* Toolbar */
+QToolBar {
+    border: none;
+    background-color: ${od_bg_dark};
+    padding: 2px;
+    spacing: 3px;
+}
+
+QToolBar::separator {
+    height: 16px;
+    width: 1px;
+    background: ${od_selection};
+    margin: 4px;
+}
+
+QToolButton {
+    background: transparent;
+    border: 1px solid transparent;
+    padding: 4px;
+    border-radius: 3px;
+}
+
+QToolButton:hover {
+    background: ${od_selection};
+}
+
+QToolButton:pressed {
+    background: ${od_bg_darker};
+}
+
+/* IDA Specific Views (CustomIDAMemo) - Ported to match One Dark colors but generic structure */
 CustomIDAMemo {
     qproperty-line-fg-default: ${od_fg};
     qproperty-line-bg-default: ${od_bg};
@@ -252,36 +547,34 @@ CustomIDAMemo {
     qproperty-line-fg-import-name: ${od_yellow};
     
     qproperty-line-bg-selected: ${od_selection};
-    qproperty-caret: ${od_blue};
+    /* qproperty-caret: ${od_blue}; */
     
-    /* Highlight colors matching One Dark */
-    qproperty-line-bg-highlight: rgba(97, 175, 239, 0.2); /* Blue tint */
-    qproperty-line-bg-highlight-2: rgba(152, 195, 121, 0.2); /* Green tint */
-    
-    qproperty-line-pfx-func: ${od_purple};
-    qproperty-line-pfx-insn: ${od_gray};
-    qproperty-line-pfx-data: ${od_gray};
-    
+    qproperty-line-bg-highlight: rgba(97, 175, 239, 0.2);
     qproperty-line-pfx-current-line: ${od_yellow};
     qproperty-line-bgovl-current-line: rgba(44, 49, 58, 1);
 }
 
-/* CPU Registers (TCpuRegs) */
+/* TCpuRegs */
 TCpuRegs {
     background-color: ${od_bg_dark};
     color: ${od_fg};
-    
     qproperty-register-defined: ${od_fg};
     qproperty-register-changed: ${od_yellow};
     qproperty-register-edited: ${od_red};
     qproperty-register-unavailable: ${od_gray};
 }
 
-/* Navigation Band */
+TCpuRegs QPushButton {
+    border: 1px solid ${od_bg_darker};
+    background: transparent;
+    margin: 1px;
+}
+
+/* Navigation Band - Using One Dark colors */
 navband_t {
     qproperty-lib-function: ${od_purple};
     qproperty-function: ${od_blue};
-    qproperty-code: ${od_bg_dark}; /* Keep simpler for nav band */
+    qproperty-code: ${od_bg_dark};
     qproperty-data: ${od_fg};
     qproperty-undefined: ${od_gray};
     qproperty-extern: ${od_cyan};
@@ -289,19 +582,30 @@ navband_t {
     qproperty-cursor: ${od_yellow};
 }
 
+/* NavBand Buttons */
+navband_t QToolButton {
+     /* Inheriting structure from 52dark but ensuring flat look */
+    min-height: 0;
+    min-width: 0;
+    padding: 1px;
+    border: none;
+    background: transparent;
+    border-radius: 2px;
+}
+navband_t QToolButton:hover {
+    background-color: ${od_selection};
+}
+
 /* Graph View */
 GraphView, TGraph {
     qproperty-background-color: ${od_bg};
     qproperty-graph-bg-top: ${od_bg};
     qproperty-graph-bg-bottom: ${od_bg};
-    
     qproperty-graph-node-title-normal: ${od_fg};
     qproperty-graph-node-title-selected: ${od_white};
     qproperty-graph-node-title-current: ${od_yellow};
-    
     qproperty-graph-edge-normal: ${od_gray};
     qproperty-graph-edge-yes: ${od_green};
     qproperty-graph-edge-no: ${od_red};
-    
     qproperty-graph-node-shadow: ${od_bg_darker};
 }
