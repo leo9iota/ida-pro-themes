@@ -391,20 +391,20 @@ QComboBox QAbstractItemView {
     border-radius: 3px;
 }
 
-/* ScrollBars - Flat Style */
+/* ScrollBars - Flat Style - Fixed Margins */
 QScrollBar:horizontal {
     background: ${od_bg};
-    height: 14px;
-    margin: 0px 14px 0 14px;
+    height: 12px;
+    margin: 0px;
     border: 1px solid ${od_bg_darker};
-    border-radius: 7px;
+    border-radius: 6px;
 }
 
 QScrollBar::handle:horizontal {
     background: ${od_selection};
     min-width: 20px;
-    border-radius: 5px;
-    margin: 2px 0px;
+    border-radius: 4px;
+    margin: 2px;
 }
 
 QScrollBar::handle:horizontal:hover {
@@ -414,27 +414,26 @@ QScrollBar::handle:horizontal:hover {
 QScrollBar::add-line:horizontal, QScrollBar::sub-line:horizontal {
     border: none;
     background: none;
-    width: 0px; /* Hide buttons for cleaner look, or style them match flat */
+    width: 0px;
 }
 
-/* Keeping arrows simple if we hide buttons, but if we show them: */
 QScrollBar:left-arrow:horizontal, QScrollBar:right-arrow:horizontal {
     width: 0px; height: 0px;
 }
 
 QScrollBar:vertical {
     background: ${od_bg};
-    width: 14px;
-    margin: 14px 0 14px 0;
+    width: 12px;
+    margin: 0px;
     border: 1px solid ${od_bg_darker};
-    border-radius: 7px;
+    border-radius: 6px;
 }
 
 QScrollBar::handle:vertical {
     background: ${od_selection};
     min-height: 20px;
-    border-radius: 5px;
-    margin: 0px 2px;
+    border-radius: 4px;
+    margin: 2px;
 }
 
 QScrollBar::handle:vertical:hover {
@@ -584,10 +583,13 @@ navband_t {
 
 /* NavBand Buttons */
 navband_t QToolButton {
-     /* Inheriting structure from 52dark but ensuring flat look */
-    min-height: 0;
-    min-width: 0;
-    padding: 1px;
+    /* Explicitly small to allow resizing the band */
+    icon-size: 12px; 
+    min-height: 14px;
+    max-height: 14px;
+    min-width: 14px;
+    padding: 0px;
+    margin: 0px;
     border: none;
     background: transparent;
     border-radius: 2px;
