@@ -564,3 +564,26 @@ MainMsgList {
     background-color: #282c34;
     border: 1px solid #181a1f;
 }
+/* IDA Specific Views */
+TNavBand {
+    min-height: 20px;
+    max-height: 20px;
+    border: none;
+    background-color: #21252b;
+}
+
+/* Force dark background for Code/Graph views */
+CustomIDAMemo,
+TIdaMemo,
+TGraph,
+GraphView {
+    background-color: #282c34;
+    color: #abb2bf;
+    border: none;
+    qproperty-background-color: #282c34;
+}
+
+/* Specific override for the Navigation Band Container to ensure it respects the height */
+QWidget[accessibilityClassName="TNavBand"] {
+    max-height: 20px;
+}
