@@ -4,10 +4,6 @@ Dark themes for [IDA Pro 9.x](https://hex-rays.com/pricing), inspired by Atom On
 
 ![IDA Pro Theme Preview](./assets/ida-pro-theme-1.png)
 
-> IDA Pro costs $8'599 per year. These themes are free tho.
-
-![IDA Pro Pricing](./assets/ida-pro-theme-2.png)
-
 ## Themes
 
 | Theme          | Description                             |
